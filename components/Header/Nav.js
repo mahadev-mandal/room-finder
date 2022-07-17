@@ -1,4 +1,4 @@
-import { Divider, IconButton, InputBase, Paper, Stack } from "@mui/material";
+import { Divider, Grid, IconButton, InputBase, Paper, Stack } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -6,33 +6,43 @@ import logo from "../../assets/images/header-logo.png";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { navBg } from "../../constants/constant";
+import { headerPadding, navBg, navColor } from "../../constants/constant";
 import MenuIcon from "@mui/icons-material/Menu";
+import styles from './Header.module.css'
+import { Box } from "@mui/system";
 
 function Nav() {
   return (
-    // middle header
-    <Stack
-      // height={{md:80, xs:100}}
-      spacing={2}
-      color="white"
-      direction={{ md: "row", xs: "column" }}
+    <Grid container
       alignItems="center"
+      columnGap={4}
       sx={{
         background: navBg,
-        p: "10px 35px",
+        color: navColor,
+        p: headerPadding,
+        height: { md: 80, xs: 90 },
       }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-        <MenuIcon fontSize="large" />
-        <Stack>
+      <Grid item xs={12} md={2}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <IconButton aria-label="menu" size="large" sx={{ display: { md: 'none', xs: 'inline',  }, color:'white'}}>
+            <MenuIcon />
+          </IconButton>
           <Link href="/">
-            <Image width={200} height={50} src={logo} alt="room finder logo" />
+            <a>
+              <Image width={100} height={35} src={logo} alt="room finder logo" />
+            </a>
           </Link>
+          <Box sx={{ display: { md: 'none', xs: 'inline' } }}>
+            <Link href="#">
+              <a className={styles.navAnchor}>
+                <FavoriteBorderIcon />
+              </a>
+            </Link>
+          </Box>
         </Stack>
-        <FavoriteBorderIcon fontSize="large" />
-      </Stack>
-      <Stack width="100%">
+      </Grid>
+      <Grid item xs={true}>
         <Paper
           component="form"
           sx={{
@@ -40,7 +50,7 @@ function Nav() {
             display: "flex",
             alignItems: "center",
             width: "100%",
-            height: "40px",
+            height: { md: 40, xs: 30 },
           }}
         >
           <InputBase
@@ -53,16 +63,28 @@ function Nav() {
             <SearchIcon />
           </IconButton>
         </Paper>
-      </Stack>
-      <Stack alignItems="center" display={{ md: "inline-block", xs: "none" }}>
-        <PersonOutlineIcon fontSize="medium" />
-        Account
-      </Stack>
-      <Stack alignItems="center" display={{ md: "inline-block", xs: "none" }}>
-        <FavoriteBorderIcon />
-        Saved
-      </Stack>
-    </Stack>
+      </Grid>
+      <Grid item display={{ md: "inline-block", xs: "none" }}>
+        <Link href="#">
+          <a className={styles.navAnchor}>
+            <Stack alignItems="center" >
+              <PersonOutlineIcon fontSize="medium" />
+              Account
+            </Stack>
+          </a>
+        </Link>
+      </Grid>
+      <Grid item display={{ md: "inline-block", xs: "none" }}>
+        <Link href="#">
+          <a className={styles.navAnchor}>
+            <Stack alignItems="center">
+              <FavoriteBorderIcon />
+              Saved
+            </Stack>
+          </a>
+        </Link>
+      </Grid>
+    </Grid>
   );
 }
 

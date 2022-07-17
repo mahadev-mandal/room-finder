@@ -24,7 +24,7 @@ function TopMenu() {
         background: topHeaderBg,
         p: headerPadding,
         height: 33,
-        visibility: { xs: "hidden", md:"visible" },
+        display: { xs: "none", md: "flex" },
       }}
     >
       {/* Top Menu Left side */}
