@@ -1,58 +1,60 @@
-import { Paper, Stack, } from '@mui/material'
-import React from 'react'
+import { useState } from 'react';
+import { useRouter } from 'next/router'
+import {
+    BottomNavigation,
+    BottomNavigationAction,
+    Paper,
+} from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import Link from 'next/link';
 
-function BottomNav() {
+export default function LabelBottomNavigation() {
+    const router = useRouter()
+
+    const [value, setValue] = useState(router.pathname);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
         <Paper
-            elevation={2}
+            elevation={3}
             sx={{
                 position: 'fixed',
-                bottom: 0,
-                left: 0,
+                bottom: 0, left: 0,
                 right: 0,
-                py: '5px',
+                zIndex:10000,
                 display: { md: 'none', xs: 'block' }
             }}
         >
-            <Stack direction="row" justifyContent="space-around">
-                <Link href="#">
-                    <a>
-                        <Stack alignItems="center">
-                            <HomeOutlinedIcon />
-                            Home
-                        </Stack>
-                    </a>
-                </Link>
-                <span variant='text' style={{cursor:'pointer'}}>
-                    <Stack alignItems="center">
-                        <CategoryOutlinedIcon />
-                        Categories
-                    </Stack>
-                </span>
-                <Link href="#">
-                    <a>
-                        <Stack alignItems="center">
-                            <PersonOutlinedIcon />
-                            Account
-                        </Stack>
-                    </a>
-                </Link>
-                <Link href="#">
-                    <a>
-                        <Stack alignItems="center">
-                            <FavoriteBorderOutlinedIcon />
-                            Saved
-                        </Stack>
-                    </a>
-                </Link>
-            </Stack>
+            <BottomNavigation sx={{ width: '100%' }} value={value} onChange={handleChange}>
+                <BottomNavigationAction
+                    label="Home"
+                    value="/"
+                    icon={<HomeOutlinedIcon />}
+                    onClick={() => router.push('/')}
+                />
+                <BottomNavigationAction
+                    label="Categories"
+                    value="categories"
+                    icon={<CategoryOutlinedIcon />}
+                />
+                <BottomNavigationAction
+                    label="Account"
+                    value="login"
+                    icon={<PersonOutlinedIcon />}
+                    onClick={() => router.push('#')}
+                />
+                <BottomNavigationAction
+                    label="Saved"
+                    value="/saved"
+                    icon={<FavoriteBorderOutlinedIcon />}
+                    onClick={() => router.push('#')}
+                />
+            </BottomNavigation>
         </Paper>
-    )
+    );
 }
-
-export default BottomNav

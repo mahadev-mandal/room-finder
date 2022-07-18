@@ -2,6 +2,7 @@ import { Divider, } from "@mui/material"
 import Menu from "./Menu"
 import Nav from "./Nav"
 import TopMenu from "./TopMenu"
+// import PersistentDrawerLeft from '../../HOC/PersistentDrawer/PersistentDrawer'
 
 function Header() {
 
@@ -17,6 +18,7 @@ function Header() {
                 }}
             />
             <Menu />
+            {/* <PersistentDrawerLeft /> */}
         </header>
     )
 }
