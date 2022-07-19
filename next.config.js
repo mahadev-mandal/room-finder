@@ -24,3 +24,9 @@ module.exports = {
     dirs: ['pages', 'utils'], 
   },
 }
+
+module.exports = {
+  images: {
+    domains: ['images.pexels.com'],
+  },
+}
